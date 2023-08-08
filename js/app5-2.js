@@ -15,7 +15,12 @@ let myArr = [16,-37,54,-4,72,-56,47,4,-16,25,-37,46,4,-51,27,-63,4,-54,76,-4,12,
 let sumPositive = 0;
 let countPositive = 0;
 let countNegative = 0;
-let startValue = myArr[0];
+
+let minElement = myArr[0];
+let minIndex = 0;
+
+let maxElement = myArr[0];
+let maxIndex = 0;
 
 for (let i = 0; i < myArr.length; i++){
     if (myArr[i] > 0){
@@ -25,8 +30,14 @@ for (let i = 0; i < myArr.length; i++){
         countNegative++;
     }
 
-    if (myArr[i] < startValue) {
-        
+    if (myArr[i] < minElement) {
+        minElement = myArr[i];
+        minIndex = i;
+    }
+
+    if (myArr[i] > maxElement) {
+        maxElement = myArr[i];
+        maxIndex = i;
     }
 }
 
