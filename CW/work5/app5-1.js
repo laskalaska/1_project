@@ -10,7 +10,7 @@ for (let i = 0; i < arrLength; i++) {
 alert(`Your array: ${newArr}`);
 alert(`Your array sorted: ${newArr.sort()}`);
 let splicedArr = newArr.splice(2,3);
-alert(`Your array: ${newArr}`);
+alert(`Your array without from 2 to 4 index value: ${newArr}`);
 
 // let students = [
 //     'Kyle',

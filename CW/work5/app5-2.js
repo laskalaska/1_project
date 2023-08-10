@@ -27,10 +27,13 @@ let countPositivePair = 0;
 let sumPositiveNotPair = 0;
 let sumPositivePair = 0;
 
+let productPositive = 1;
+
 for (let i = 0; i < myArr.length; i++) {
     if (myArr[i] > 0) {
         sumPositive += myArr[i]
         countPositive++;
+        productPositive *= myArr[i];
         if (myArr[i] % 2) {
             countPositiveNotPair++;
             sumPositiveNotPair += myArr[i];
@@ -51,13 +54,15 @@ for (let i = 0; i < myArr.length; i++) {
         maxElement = myArr[i];
         maxIndex = i;
     }
+    if (i === myArr.length - 1) {
+        for (let a = 0; a < myArr.length; a++) {
+            if (!(a === maxIndex)) {
+                myArr[a] = 0;
+            }
+        }
+    }
 }
 
-// let minElement = Math.min(...myArr);
-// let minIndex = myArr.indexOf(minElement);
-//
-// let maxElement = Math.max(...myArr);
-// let maxIndex = myArr.indexOf(maxElement);
 
 console.log(`Sum of positive numbers = ${sumPositive}, count of positive numbers = ${countPositive}`);
 console.log(`Minimal value of the array is ${minElement}, its index is ${minIndex}`);
@@ -67,3 +72,5 @@ console.log(`Count of NOT pair positive numbers = ${countPositiveNotPair}`);
 console.log(`Count of pair positive numbers = ${countPositivePair}`);
 console.log(`Sum of pair positive numbers = ${sumPositivePair}`);
 console.log(`Sum of NOT pair positive numbers = ${sumPositiveNotPair}`);
+console.log(`Product of positive numbers = ${productPositive}`);
+console.log(myArr);
