@@ -4,23 +4,32 @@ function showProducts() {
   }
 }
 
-function getProductNumber () {
-  let productNumber;
+function getNumericValue (request, maxValue) {
+  let value;
   do {
-    productNumber = parseInt(prompt('Enter product number which you wanna buy:'));
-  } while(productNumber < 1 || productNumber > products.length || isNaN(productNumber));
-
-  return productNumber;
+    value = parseInt(prompt(request));
+    console.log(maxValue)
+  } while (value < 1 || isNaN(value) || value > maxValue);
+  return value;
 }
 
-function getProductAmount () {
-  let productsAmount;
-  do {
-    productsAmount = parseInt(prompt('Enter products amount:'));
-  } while(productsAmount < 1 || isNaN(productsAmount));
-
-  return productsAmount;
-}
+// function getProductNumber () {
+//   let productNumber;
+//   do {
+//     productNumber = parseInt(prompt('Enter product number which you wanna buy:'));
+//   } while(productNumber < 1 || productNumber > products.length || isNaN(productNumber));
+//
+//   return productNumber;
+// }
+//
+// function getProductAmount () {
+//   let productsAmount;
+//   do {
+//     productsAmount = parseInt(prompt('Enter products amount:'));
+//   } while(productsAmount < 1 || isNaN(productsAmount));
+//
+//   return productsAmount;
+// }
 
 function getSelectedProduct (productNumber) {
   return products[productNumber - 1];
@@ -31,11 +40,18 @@ function calcPrice (selectedProduct, productsAmount) {
   console.log('Price: $', initialPrice);
 
   if (isDiscount(initialPrice)) {
-    const finalPrice = initialPrice * discountValue;
+    const finalPrice = getFinalPrice(initialPrice);
     console.log('Congrats! You got a discount, the final price is $' + finalPrice);
   }
 }
 
 function isDiscount (initialPrice) {
+  const startDiscountFrom = 10000;
   return initialPrice >= startDiscountFrom;
+}
+
+function getFinalPrice (initialPrice) {
+  const discount = 10;
+  const discountValue = (100 - discount) / 100;
+  return  finalPrice = initialPrice * discountValue;
 }
