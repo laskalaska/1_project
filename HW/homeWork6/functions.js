@@ -8,28 +8,9 @@ function getNumericValue (request, maxValue) {
   let value;
   do {
     value = parseInt(prompt(request));
-    console.log(maxValue)
   } while (value < 1 || isNaN(value) || value > maxValue);
   return value;
 }
-
-// function getProductNumber () {
-//   let productNumber;
-//   do {
-//     productNumber = parseInt(prompt('Enter product number which you wanna buy:'));
-//   } while(productNumber < 1 || productNumber > products.length || isNaN(productNumber));
-//
-//   return productNumber;
-// }
-//
-// function getProductAmount () {
-//   let productsAmount;
-//   do {
-//     productsAmount = parseInt(prompt('Enter products amount:'));
-//   } while(productsAmount < 1 || isNaN(productsAmount));
-//
-//   return productsAmount;
-// }
 
 function getSelectedProduct (productNumber) {
   return products[productNumber - 1];
