@@ -1,0 +1,13 @@
+.hidden {
+    display: none;
+}
+
+.clickedBtn {
+    background-color: pink;
+    font-size: 24px;
+    border: none;
+}
+
+.product {
+    color: crimson;
+}
