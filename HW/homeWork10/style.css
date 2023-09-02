@@ -1,0 +1,33 @@
+.hidden {
+    display: none;
+}
+
+.clickedBtn {
+    background-color: pink;
+    font-size: 24px;
+    border: none;
+}
+
+.product {
+    color: crimson;
+}
+
+
+/*hwApp10*/
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+#randomImgBtn {
+    display: block;
+}
+
+.randomImg {
+    width: 15%;
+}
