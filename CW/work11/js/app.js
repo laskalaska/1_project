@@ -30,10 +30,26 @@ function showItem (product) {
   parentNode.innerHTML = '';
 
   for (let property in product) {
-    let element = document.createElement('div');
-    element.textContent = `${property}: ${product[property]}`;
-    parentNode.appendChild(element);
+    if (!(property === 'id')) {
+      let element = document.createElement('div');
+
+      if (property === 'price'){
+        element.textContent = `${property}: $${product[property]}`;
+      } else {
+        element.textContent = `${property}: ${product[property]}`;
+      }
+
+      element.id = property;
+
+      parentNode.appendChild(element);
+    }
   }
+
+  const buyBtn = document.createElement('input');
+  buyBtn.setAttribute('type', 'button');
+  buyBtn.setAttribute('value', 'Buy this product');
+  buyBtn.id = 'buyAction';
+  parentNode.appendChild(buyBtn);
 }
 
 showCategories();
@@ -44,9 +60,11 @@ document.getElementById('left').addEventListener('click', event => {
   if (event.target.nodeName === 'DIV') {
     const categoryKey = event.target.getAttribute('data-category');
     const categoryProducts = categories[categoryKey].products;
-    console.log(categoryProducts)
+    // console.log(categoryProducts);
     showProducts(categoryProducts, categoryKey);
   }
+  const right = document.getElementById('right');
+  right.innerHTML = '';
 });
 
 
@@ -57,8 +75,22 @@ document.getElementById('center').addEventListener('click', event => {
 
     const product = categories[categoryKey].products.find(product => product.id == productId);
 
-    console.log(product);
+    // console.log(product);
     showItem(product);
   }
+});
+
+document.getElementById('right').addEventListener('click', event => {
+    if (event.target.getAttribute('id') === 'buyAction') {
+        const center = document.getElementById('center');
+        const right = document.getElementById('right');
+
+        const productName = document.getElementById('name').innerText.replace(/^name: /, '');
+
+        alert(`${productName} sold successfully`);
+
+        center.innerHTML = '';
+        right.innerHTML = '';
+    }
 });
 
