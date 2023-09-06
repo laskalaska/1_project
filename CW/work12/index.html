@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<form name="mainForm">
+    <p><input type="text" name="firstName" placeholder="First Name"></p>
+    <p><input type="text" name="lastName" placeholder="Last Name"></p>
+    <p><input type="text" name="birthdate" placeholder="Birthdate"></p>
+
+    <p><input type="radio" name="gender" value="M">Male</p>
+    <p><input type="radio" name="gender" value="F">Female</p>
+
+    <select name="city">
+        <option value="kyiv">Kyiv</option>
+        <option value="odesa">Odesa</option>
+        <option value="lviv">Lviv</option>
+    </select>
+
+    <p><textarea name="address"></textarea></p>
+
+    <p><input type="checkbox" name="languages" value="ukr">Ukrainian</p>
+    <p><input type="checkbox" name="languages" value="eng">English</p>
+    <p><input type="checkbox" name="languages" value="ger">Germany</p>
+
+    <p><input type="button" id="saveUserInfoBtn" value="Save"></p>
+</form>
+
+<table id="userTable"></table>
+
+<script src="app12.js"></script>
+</body>
+</html>
