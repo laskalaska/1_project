@@ -17,6 +17,42 @@
     <div id="right"></div>
   </div>
 
+  <form name="checkout" class="hidden">
+    <p><input type="text" name="fullName" placeholder="First name, last name(required)" required></p>
+
+    <select name="city" required>
+      <option value="">--choose city--</option>
+      <option value="kyiv">Kyiv</option>
+      <option value="odesa">Odesa</option>
+      <option value="lviv">Lviv</option>
+    </select>
+
+    <p><input type="text" name="postalOffice" placeholder="Postal(required)" required></p>
+
+    <p><input type="radio" name="payment" value="postpaid" required>Postpaid</p>
+    <p><input type="radio" name="payment" value="bankCard" required>Bank card</p>
+
+    <p><input type="number" name="quantity" min="1" placeholder="Quantity of product(required)" required></p>
+
+    <p><textarea name="userNote" placeholder="Add a comment"></textarea></p>
+
+    <p><input type="button" value="Confirm info" id="confirmOrder"></p>
+  </form>
+
+  <div id="error"></div>
+
+  <div id="userOrderInfo">
+    <div id="billAddress">
+      <h3>Customer Info</h3>
+      <div id="billAddressDetails"></div>
+    </div>
+    <div id="productInfo">
+      <h3>Order details</h3>
+      <div id="productInfoDetails"></div>
+      <div class="totalPrice"></div>
+    </div>
+  </div>
+
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
 </body>
