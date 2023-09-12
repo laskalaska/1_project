@@ -121,60 +121,75 @@ function getTotalPrice(price) {
     return totalPrice;
 }
 
-function validateForm() {
+function validateForm(formValues) {
+
+    if (!formValues.fullName || !formValues.city || !formValues.post || !formValues.payment || !formValues.quantity) {
+        return false;
+    } else {
+        return true;
+    }
+
+}
+
+document.getElementById('confirmOrder').addEventListener('click', (event) => {
     const checkoutForm = document.forms.checkout;
     const checkoutFormElements = checkoutForm.elements;
-    const fullName = checkoutFormElements.fullName.value;
-    console.log(Boolean(fullName));
-    const city = cities[checkoutFormElements.city.value];
-    const post = checkoutFormElements.postalOffice.value;
-    const payment = checkedItem(checkoutFormElements.payment);
-    const quantity = checkoutFormElements.quantity.value;
-    const comment = checkoutFormElements.userNote.value;
+
+    const checkoutFormValues = {
+        fullName: checkoutFormElements.fullName.value,
+        city: cities[checkoutFormElements.city.value],
+        post: checkoutFormElements.postalOffice.value,
+        payment: checkedItem(checkoutFormElements.payment),
+        quantity: checkoutFormElements.quantity.value,
+        comment: checkoutFormElements.userNote.value
+    }
+
+    const isValid = validateForm(checkoutFormValues);
 
     const error = document.getElementById('error');
     error.innerText = '';
 
-    if (!fullName || !city || !post || !payment || !quantity) {
-        error.innerText = 'Please, enter all required fields';
-
+    if (isValid) {
+        showCustomerInfo(checkoutFormValues);
+        showOrderDetails();
     } else {
-        const userData = [
-            {label: 'Full Name', value: fullName},
-            {label: 'City', value: city},
-            {label: 'Post', value: post},
-            {label: 'Payment', value: payment},
-            {label: 'Quantity of product', value: quantity},
-            {label: 'Comment', value: comment},
-        ]
+        error.innerText = 'Please, enter all required fields';
+    }
+});
 
-        const orderBoard = document.getElementById('userOrderInfo');
-        orderBoard.style.visibility = 'visible';
+function showCustomerInfo (checkoutFormValues) {
+    const userData = [
+        {label: 'Full Name', value: checkoutFormValues.fullName},
+        {label: 'City', value: checkoutFormValues.city},
+        {label: 'Post', value: checkoutFormValues.post},
+        {label: 'Payment', value: checkoutFormValues.payment},
+        {label: 'Quantity of product', value: checkoutFormValues.quantity},
+        {label: 'Comment', value: checkoutFormValues.comment},
+    ]
+
+    const orderBoard = document.getElementById('userOrderInfo');
+    orderBoard.style.visibility = 'visible';
 
 
-        const billAddressDetails = document.getElementById('billAddressDetails');
-        billAddressDetails.innerHTML = '';
+    const billAddressDetails = document.getElementById('billAddressDetails');
+    billAddressDetails.innerHTML = '';
 
 
-        for (let dataInput of userData) {
-            const p = document.createElement('p');
-            if (dataInput.value) {
-                p.textContent = `${dataInput.label} : `;
+    for (let dataInput of userData) {
+        const p = document.createElement('p');
+        if (dataInput.value) {
+            p.textContent = `${dataInput.label} : `;
 
-                const span = document.createElement('span');
-                p.appendChild(span);
-                span.textContent = dataInput.value;
+            const span = document.createElement('span');
+            p.appendChild(span);
+            span.textContent = dataInput.value;
 
-                billAddressDetails.appendChild(p);
-            }
+            billAddressDetails.appendChild(p);
         }
     }
 }
 
-document.getElementById('confirmOrder').addEventListener('click', (event) => {
-    validateForm();
-
-
+function showOrderDetails () {
     const productInfoDetails = document.getElementById('productInfoDetails');
     productInfoDetails.innerHTML = '';
 
@@ -196,7 +211,7 @@ document.getElementById('confirmOrder').addEventListener('click', (event) => {
     totalPriceValue.textContent = `$${totalPrice.toString()}`;
 
     totalPriceContainer.appendChild(totalPriceValue);
-});
+}
 
 
 
