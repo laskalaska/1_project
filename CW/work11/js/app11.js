@@ -89,6 +89,8 @@ document.getElementById('right').addEventListener('click', event => {
         // const productName = document.getElementById('name').innerText.replace(/^name: /, '');
 
         document.forms.checkout.style.visibility = 'visible';
+        document.forms.checkout.style.width = '100%';
+        document.forms.checkout.style.height = '100%';
 
         // alert(`${productName} sold successfully`);
 
@@ -115,8 +117,7 @@ function checkedItem(arr) {
     return items;
 }
 
-function getTotalPrice(price) {
-    const quantity = document.forms.checkout.quantity.value;
+function getTotalPrice(price, quantity) {
     const totalPrice = price * quantity;
     return totalPrice;
 }
@@ -131,6 +132,39 @@ function validateForm(formValues) {
 
 }
 
+const defaultOrderHistory = [];
+const ordersHistory = JSON.parse(localStorage.getItem('ourOrders')) || defaultOrderHistory;
+
+document.getElementById('myOrdersBtn').addEventListener('click', () => {
+    const main = document.getElementById('main');
+    main.classList.add('hidden');
+    const myOrdersContainer = document.querySelector('#myOrdersLines');
+    myOrdersContainer.innerHTML = '';
+    for (let orderLine of ordersHistory) {
+        const container = createElementFunc('div', '#myOrdersLines', '', {'data-order-id': orderLine.orderId, 'className': 'orderLineStyle'});
+        createElementFunc('span', container, orderLine.orderDate);
+        createElementFunc('span', container, '$' + orderLine.totalPrice);
+
+        const actionElements = createElementFunc('div', container, '', {
+            className: 'actions',
+            'data-id': orderLine.orderId
+        })
+
+        createElementFunc('input',
+            actionElements,
+            '',
+            {type: 'button', value: 'View order', 'data-type': 'view'},
+            {click: showSavedOrder});
+
+        createElementFunc('input',
+            actionElements,
+            '',
+            {type: 'button', value: 'Delete order', 'data-type': 'delete'},
+            {click: deleteSavedOrder});
+    }
+});
+
+
 document.getElementById('confirmOrder').addEventListener('click', (event) => {
     const checkoutForm = document.forms.checkout;
     const checkoutFormElements = checkoutForm.elements;
@@ -144,20 +178,36 @@ document.getElementById('confirmOrder').addEventListener('click', (event) => {
         comment: checkoutFormElements.userNote.value
     }
 
+    const priceContainer = document.getElementById('price');
+
+    const productId = priceContainer.getAttribute('data-product');
+    const categoryKey = priceContainer.getAttribute('data-category');
+    const product = categories[categoryKey].products.find((product) => product.id == productId);
+
+    const orderData = {
+        productId,
+        categoryKey,
+        product,
+    };
+
     const isValid = validateForm(checkoutFormValues);
 
     const error = document.getElementById('error');
     error.innerText = '';
 
     if (isValid) {
-        showCustomerInfo(checkoutFormValues);
-        showOrderDetails();
+        const completeOrder = showCustomerInfo(checkoutFormValues, orderData);
+        completeOrder.orderId = Date.now();
+        completeOrder.orderDate = getCurrentDateTime();
+        ordersHistory.push(completeOrder);
+        localStorage.setItem('ourOrders', JSON.stringify(ordersHistory));
     } else {
         error.innerText = 'Please, enter all required fields';
     }
 });
 
-function showCustomerInfo (checkoutFormValues) {
+
+function showCustomerInfo(checkoutFormValues, orderData) {
     const userData = [
         {label: 'Full Name', value: checkoutFormValues.fullName},
         {label: 'City', value: checkoutFormValues.city},
@@ -169,12 +219,14 @@ function showCustomerInfo (checkoutFormValues) {
 
     const orderBoard = document.getElementById('userOrderInfo');
     orderBoard.style.visibility = 'visible';
+    orderBoard.style.width = '100%';
+    orderBoard.style.height = '100%';
 
 
     const billAddressDetails = document.getElementById('billAddressDetails');
     billAddressDetails.innerHTML = '';
 
-
+    //create Customer Info section
     for (let dataInput of userData) {
         const p = document.createElement('p');
         if (dataInput.value) {
@@ -187,21 +239,15 @@ function showCustomerInfo (checkoutFormValues) {
             billAddressDetails.appendChild(p);
         }
     }
-}
-
-function showOrderDetails () {
+    //create Order Details section
     const productInfoDetails = document.getElementById('productInfoDetails');
     productInfoDetails.innerHTML = '';
 
-    const priceContainer = document.getElementById('price');
-    const productId = priceContainer.getAttribute('data-product');
-    const categoryKey = priceContainer.getAttribute('data-category');
-    const product = categories[categoryKey].products.find((product) => product.id == productId);
 
-    showItem(product, productId, categoryKey, 'productInfoDetails');
+    showItem(orderData.product, orderData.productId, orderData.categoryKey, 'productInfoDetails');
     productInfoDetails.removeChild(productInfoDetails.lastElementChild);
 
-    const totalPrice = getTotalPrice(product.price);
+    const totalPrice = getTotalPrice(orderData.product.price, checkoutFormValues.quantity) || getTotalPrice(orderData.price, checkoutFormValues.quantity);
     const totalPriceContainer = document.querySelector(".totalPrice");
     totalPriceContainer.innerHTML = '';
 
@@ -211,7 +257,9 @@ function showOrderDetails () {
     totalPriceValue.textContent = `$${totalPrice.toString()}`;
 
     totalPriceContainer.appendChild(totalPriceValue);
+
+    orderData.totalPrice = totalPrice;
+
+    const completeOrder = {...checkoutFormValues, ...orderData};
+    return completeOrder;
 }
-
-
-

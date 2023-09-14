@@ -11,6 +11,8 @@
 
 .hidden {
   visibility: hidden;
+  width: 0;
+  height: 0;
 }
 
 #userOrderInfo {
@@ -34,4 +36,14 @@
 
 #error {
   color: red;
+}
+
+#myOrdersLines span{
+  margin-right: 10px;
+}
+
+.orderLineStyle {
+  border: 1px solid black;
+  margin: 15px 0 15px;
+  padding: 5px 0 5px;
 }
