@@ -215,15 +215,55 @@ function editUser(user, id) {
 }
 
 function handleDeleteUser(event) {
+    event.target.classList.add('hidden');
+    const container = event.target.parentNode;
+
+    const deleteText = createElement('span',
+        container,
+        'Are you sure you want to delete this record?'
+    );
+    const deleteConfirm = createElement(
+        'input',
+        container,
+        '',
+        {
+            type: 'button',
+            value: 'Confirm',
+            'data-type': 'confirm'
+        },
+        {
+            click: deleteUserById
+        }
+    );
+    const deleteDecline = createElement(
+        'input',
+        container,
+        '',
+        {
+            type: 'button',
+            value: 'Decline',
+            'data-type': 'decline'
+        },
+        {
+            click: () => {
+                deleteText.remove();
+                deleteConfirm.remove();
+                deleteDecline.remove();
+                event.target.classList.remove('hidden');
+            }
+        }
+    );
+
     console.dir(event.target);
-    const userId = event.target.parentNode.getAttribute('data-id');
-    deleteUserById(+userId);
+    // const userId = event.target.parentNode.getAttribute('data-id');
+    // deleteUserById(+userId);
 }
 
-function deleteUserById(id) {
-    const indexToRemove = users.findIndex(user => user.id === id);
+function deleteUserById(event) {
+    const userId = parseInt(event.target.parentNode.getAttribute('data-id'));
+    const indexToRemove = users.findIndex(user => user.id === userId);
     users.splice(indexToRemove, 1);
-    removeElement(`div[data-user-id="${id}"]`);
+    removeElement(`div[data-user-id="${userId}"]`);
     updateStorage();
 }
 

@@ -20,3 +20,9 @@
   flex-direction: column;
   width: 200px;
 }
+
+.hidden {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
