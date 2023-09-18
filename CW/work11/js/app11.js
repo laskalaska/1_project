@@ -88,9 +88,7 @@ document.getElementById('right').addEventListener('click', event => {
 
         // const productName = document.getElementById('name').innerText.replace(/^name: /, '');
 
-        document.forms.checkout.style.visibility = 'visible';
-        document.forms.checkout.style.width = '100%';
-        document.forms.checkout.style.height = '100%';
+        document.forms.checkout.classList.remove('hidden');
 
         // alert(`${productName} sold successfully`);
 
@@ -135,13 +133,20 @@ function validateForm(formValues) {
 const defaultOrderHistory = [];
 const ordersHistory = JSON.parse(localStorage.getItem('ourOrders')) || defaultOrderHistory;
 
-document.getElementById('myOrdersBtn').addEventListener('click', () => {
+document.getElementById('myOrdersBtn').addEventListener('click', (event) => {
     const main = document.getElementById('main');
     main.classList.add('hidden');
+    const orderBoard = document.getElementById('userOrderInfo');
+    orderBoard.classList.add('hidden');
+    const checkoutForm = document.forms.checkout;
+    checkoutForm.classList.add('hidden');
     const myOrdersContainer = document.querySelector('#myOrdersLines');
     myOrdersContainer.innerHTML = '';
     for (let orderLine of ordersHistory) {
-        const container = createElementFunc('div', '#myOrdersLines', '', {'data-order-id': orderLine.orderId, 'className': 'orderLineStyle'});
+        const container = createElementFunc('div', '#myOrdersLines', '', {
+            'data-order-id': orderLine.orderId,
+            'className': 'orderLineStyle'
+        });
         createElementFunc('span', container, orderLine.orderDate);
         createElementFunc('span', container, '$' + orderLine.totalPrice);
 
@@ -162,7 +167,27 @@ document.getElementById('myOrdersBtn').addEventListener('click', () => {
             {type: 'button', value: 'Delete order', 'data-type': 'delete'},
             {click: deleteSavedOrder});
     }
+
+    event.target.classList.add('hidden');
+    const backBtn = document.getElementById('goBackShop');
+    backBtn.classList.remove('hidden');
 });
+
+document.getElementById('goBackShop').addEventListener('click', (event) => {
+    const main = document.getElementById('main');
+    main.classList.remove('hidden');
+
+    const myOrdersBtn = document.getElementById('myOrdersBtn');
+    myOrdersBtn.classList.remove('hidden');
+
+    const orderBoard = document.getElementById('userOrderInfo');
+    orderBoard.classList.add('hidden');
+
+    event.target.classList.add('hidden');
+
+    const myOrdersContainer = document.querySelector('#myOrdersLines');
+    myOrdersContainer.innerHTML = '';
+})
 
 
 document.getElementById('confirmOrder').addEventListener('click', (event) => {
@@ -201,6 +226,7 @@ document.getElementById('confirmOrder').addEventListener('click', (event) => {
         completeOrder.orderDate = getCurrentDateTime();
         ordersHistory.push(completeOrder);
         localStorage.setItem('ourOrders', JSON.stringify(ordersHistory));
+        checkoutForm.classList.add('hidden');
     } else {
         error.innerText = 'Please, enter all required fields';
     }
@@ -218,10 +244,7 @@ function showCustomerInfo(checkoutFormValues, orderData) {
     ]
 
     const orderBoard = document.getElementById('userOrderInfo');
-    orderBoard.style.visibility = 'visible';
-    orderBoard.style.width = '100%';
-    orderBoard.style.height = '100%';
-
+    orderBoard.classList.remove('hidden');
 
     const billAddressDetails = document.getElementById('billAddressDetails');
     billAddressDetails.innerHTML = '';

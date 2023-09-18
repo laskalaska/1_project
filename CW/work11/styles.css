@@ -18,7 +18,6 @@
 #userOrderInfo {
   border: 1px solid greenyellow;
   display: flex;
-  visibility: hidden;
 }
 
 #userOrderInfo div {
