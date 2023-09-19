@@ -83,6 +83,7 @@ function showUserRow(user) {
 
 function showAddUserForm(userId) {
     const parentSelector = '#form form';
+    cleanElement(parentSelector);
 
     createElement(
         'input',
@@ -204,6 +205,7 @@ function saveUser(newUser) {
 function handleEditUser(event) {
     // console.dir(event.target);
     const userId = event.target.parentNode.getAttribute('data-id');
+    cleanElement('#form form');
     showAddUserForm(userId);
 }
 
