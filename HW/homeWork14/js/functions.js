@@ -35,15 +35,15 @@ function showUserRow(user) {
         }
     ); // deleteBtnElement
 
-    // createElement(
-    //     'input',
-    //     actionsElement,
-    //     '',
-    //     {type: 'button', value: 'View', 'data-type': 'view' },
-    //     {
-    //       click: handleViewUser
-    //     }
-    // )
+    createElement(
+        'input',
+        actionsElement,
+        '',
+        {type: 'button', value: 'View', 'data-type': 'view' },
+        {
+          click: handleViewUser
+        }
+    );
 
     // OR
 
@@ -85,6 +85,9 @@ function showAddUserForm(userId) {
     const parentSelector = '#form form';
     cleanElement(parentSelector);
 
+    const indexToEdit = userId ? users.findIndex(user => user.id === userId) : undefined;
+    console.log(indexToEdit)
+
     createElement(
         'input',
         parentSelector,
@@ -92,9 +95,11 @@ function showAddUserForm(userId) {
         {
             name: 'login',
             type: 'text',
-            placeholder: 'Enter login'
+            placeholder: 'Enter login',
+            value: typeof indexToEdit === 'number' ? users[indexToEdit].login : ''
         }
     ); // login input
+
 
     createElement(
         'input',
@@ -103,7 +108,8 @@ function showAddUserForm(userId) {
         {
             name: 'name',
             type: 'text',
-            placeholder: 'Enter name'
+            placeholder: 'Enter name',
+            value: typeof indexToEdit === 'number' ? users[indexToEdit].name : ''
         }
     ); // name input
 
@@ -114,7 +120,8 @@ function showAddUserForm(userId) {
         {
             name: 'lastName',
             type: 'text',
-            placeholder: 'Enter last name'
+            placeholder: 'Enter last name',
+            value: typeof indexToEdit === 'number' ? users[indexToEdit].lastName : ''
         }
     ); // lastName input
 
@@ -125,7 +132,8 @@ function showAddUserForm(userId) {
         {
             name: 'email',
             type: 'text',
-            placeholder: 'Enter email'
+            placeholder: 'Enter email',
+            value: typeof indexToEdit === 'number' ? users[indexToEdit].email : ''
         }
     ); // email input
 
@@ -198,13 +206,34 @@ function saveUser(newUser) {
     showUserRow(newUser);
 }
 
-// function handleViewUser(event) {
-//
-// }
+function handleViewUser(event) {
+    const userId = parseInt(event.target.parentNode.getAttribute('data-id'));
+    const indexToView = users.findIndex(user => user.id === userId);
+
+    // const userContainer = document.querySelector(`div[data-user-id='${userId}']`);
+    cleanElement('#userInfo');
+    const infoContainer = createElement('div', `#userInfo`, '', {'data-id': userId, className: 'user-info-complete'});
+
+    // userContainer.after(infoContainer);
+
+    const loginContainer = createElement('p', infoContainer, 'Login: ');
+    createElement('span', loginContainer, users[indexToView].login);
+    const nameContainer = createElement('p', infoContainer, 'Name: ');
+    createElement('span', nameContainer, users[indexToView].name);
+    const lastNameContainer = createElement('p', infoContainer, 'Last Name: ');
+    createElement('span', lastNameContainer, users[indexToView].lastName);
+    const emailContainer = createElement('p', infoContainer, 'Email Address: ');
+    createElement('span', emailContainer, users[indexToView].email);
+
+
+    // for (let value in users[indexToView]) {
+    //
+    // }
+}
 
 function handleEditUser(event) {
     // console.dir(event.target);
-    const userId = event.target.parentNode.getAttribute('data-id');
+    const userId = parseInt(event.target.parentNode.getAttribute('data-id'));
     cleanElement('#form form');
     showAddUserForm(userId);
 }
