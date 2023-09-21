@@ -44,41 +44,6 @@ function showUserRow(user) {
             click: handleDeleteUser
         }
     ); // deleteBtnElement
-
-    // OR
-
-    // const parent = document.getElementById('users');
-
-    // const container = document.createElement('div');
-
-    // const idElement = document.createElement('div');
-    // idElement.textContent = user.id;
-    // container.appendChild(idElement);
-
-    // const nameElement = document.createElement('div');
-    // nameElement.textContent = user.name + ' ' + user.lastName;
-    // container.appendChild(nameElement);
-
-    // const actionsElement = document.createElement('div');
-    // actionsElement.classList.add('actions')
-
-    // const editBtnElement = document.createElement('input');
-    // editBtnElement.setAttribute('type', 'button');
-    // editBtnElement.setAttribute('value', 'Edit');
-    // editBtnElement.setAttribute('data-type', 'edit');
-    // // add event listener
-    // actionsElement.appendChild(editBtnElement);
-
-    // const deleteBtnElement = document.createElement('input');
-    // deleteBtnElement.setAttribute('type', 'button');
-    // deleteBtnElement.setAttribute('value', 'Delete');
-    // deleteBtnElement.setAttribute('data-type', 'delete');
-    // // add event listener
-    // actionsElement.appendChild(deleteBtnElement);
-
-    // container.appendChild(actionsElement);
-
-    // parent.appendChild(container);
 }
 
 function showAddUserForm(userId) {
@@ -88,7 +53,7 @@ function showAddUserForm(userId) {
     cleanElement(parentSelector);
 
     const indexToEdit = userId ? users.findIndex(user => user.id === userId) : undefined;
-    console.log(indexToEdit)
+    // console.log(indexToEdit)
 
     createElement(
         'input',
@@ -177,8 +142,8 @@ function handleSaveUser(event) {
     };
 
     const isValid = validate(user);
-    console.log(userId);
-    console.log(user);
+    // console.log(userId);
+    // console.log(user);
 
     if (!isValid) {
         const error = document.querySelector('#error');
