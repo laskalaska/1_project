@@ -29,21 +29,21 @@ function showUserRow(user) {
         'input',
         actionsElement,
         '',
-        {type: 'button', value: 'Delete', 'data-type': 'delete'},
+        {type: 'button', value: 'View', 'data-type': 'view' },
         {
-            click: handleDeleteUser
+          click: handleViewUser
         }
-    ); // deleteBtnElement
+    ); //viewBtnElement
 
     createElement(
         'input',
         actionsElement,
         '',
-        {type: 'button', value: 'View', 'data-type': 'view' },
+        {type: 'button', value: 'Delete', 'data-type': 'delete'},
         {
-          click: handleViewUser
+            click: handleDeleteUser
         }
-    );
+    ); // deleteBtnElement
 
     // OR
 
@@ -82,6 +82,7 @@ function showUserRow(user) {
 }
 
 function showAddUserForm(userId) {
+    cleanElement('#userInfo');
     const parentSelector = '#form form';
     cleanElement(parentSelector);
 
@@ -207,6 +208,8 @@ function saveUser(newUser) {
 }
 
 function handleViewUser(event) {
+    cleanElement('#form form');
+
     const userId = parseInt(event.target.parentNode.getAttribute('data-id'));
     const indexToView = users.findIndex(user => user.id === userId);
 
@@ -234,7 +237,7 @@ function handleViewUser(event) {
 function handleEditUser(event) {
     // console.dir(event.target);
     const userId = parseInt(event.target.parentNode.getAttribute('data-id'));
-    cleanElement('#form form');
+    // cleanElement('#form form');
     showAddUserForm(userId);
 }
 
@@ -291,6 +294,9 @@ function handleDeleteUser(event) {
 }
 
 function deleteUserById(event) {
+    cleanElement('#userInfo');
+    cleanElement('#form form');
+
     const userId = parseInt(event.target.parentNode.getAttribute('data-id'));
     const indexToRemove = users.findIndex(user => user.id === userId);
     users.splice(indexToRemove, 1);
