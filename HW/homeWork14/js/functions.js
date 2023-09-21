@@ -83,6 +83,7 @@ function showUserRow(user) {
 
 function showAddUserForm(userId) {
     cleanElement('#userInfo');
+    cleanElement('#error');
     const parentSelector = '#form form';
     cleanElement(parentSelector);
 
@@ -180,21 +181,22 @@ function handleSaveUser(event) {
     console.log(user);
 
     if (!isValid) {
-        // TODO: add errors
+        const error = document.querySelector('#error');
+        cleanElement(error);
+        error.innerText = 'Please, enter all required fields.';
     } else {
         if (userId) {
             editUser(user, userId);
         } else {
             saveUser(user);
         }
+        cleanElement('#error');
         cleanElement('#form form');
     }
 }
 
 function validate(user) {
-    // TODO: write validation function
-
-    if (user.login === '') {
+    if (user.login === '' || user.email === '' || user.name === '' || user.lastName === '') {
         return false;
     }
 
@@ -208,6 +210,7 @@ function saveUser(newUser) {
 }
 
 function handleViewUser(event) {
+    cleanElement('#error');
     cleanElement('#form form');
 
     const userId = parseInt(event.target.parentNode.getAttribute('data-id'));
@@ -294,6 +297,7 @@ function handleDeleteUser(event) {
 }
 
 function deleteUserById(event) {
+    cleanElement('#error');
     cleanElement('#userInfo');
     cleanElement('#form form');
 

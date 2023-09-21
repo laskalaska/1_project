@@ -34,3 +34,7 @@
 .user-info-complete span {
   font-weight: 300;
 }
+
+#error {
+  color: red;
+}
