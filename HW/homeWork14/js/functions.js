@@ -67,6 +67,16 @@ function showAddUserForm(userId) {
         }
     ); // login input
 
+    createElement('input',
+        parentSelector,
+        '',
+        {
+            name: 'password',
+            type: 'password',
+            placeholder: 'Enter password',
+            value: typeof indexToEdit === 'number' ? users[indexToEdit].password : ''
+        }
+    ); // password input
 
     createElement(
         'input',
@@ -91,6 +101,42 @@ function showAddUserForm(userId) {
             value: typeof indexToEdit === 'number' ? users[indexToEdit].lastName : ''
         }
     ); // lastName input
+
+    createElement(
+        'input',
+        parentSelector,
+        '',
+        {
+            name: 'age',
+            type: 'text',
+            placeholder: 'Enter your age',
+            value: typeof indexToEdit === 'number' ? users[indexToEdit].age : ''
+        }
+    ); // age input
+
+    createElement(
+        'input',
+        parentSelector,
+        '',
+        {
+            name: 'phoneNumber',
+            type: 'text',
+            placeholder: 'Enter your phone number',
+            value: typeof indexToEdit === 'number' ? users[indexToEdit].phoneNumber : ''
+        }
+    ); // phoneNumber input
+
+    createElement(
+        'input',
+        parentSelector,
+        '',
+        {
+            name: 'creditCardNumber',
+            type: 'text',
+            placeholder: 'Card Number',
+            value: typeof indexToEdit === 'number' ? users[indexToEdit].creditCardNumber : ''
+        }
+    ); // creditCardNumber input
 
     createElement(
         'input',
@@ -129,21 +175,33 @@ function handleSaveUser(event) {
     const userId = parseInt(event.target.getAttribute('data-id'));
 
     const login = formElements.login.value;
+    const password = formElements.password.value;
     const name = formElements.name.value;
     const lastName = formElements.lastName.value;
+    const age = formElements.age.value;
+    const phoneNumber = formElements.phoneNumber.value;
+    const creditCardNumber = formElements.creditCardNumber.value;
     const email = formElements.email.value;
 
     const user = {
         login,
+        password,
         name,
         lastName,
+        age,
+        phoneNumber,
+        creditCardNumber,
         email,
         id: userId ? userId : Date.now(), // TODO: think about other options
     };
 
     const isValidLogin = validateLogin(user.login);
+    const isValidPassword = validatePassword(user.password);
     const isValidName = validateName(user.name);
     const isValidLastName = validateLastName(user.lastName);
+    const isValidAge = validateAge(user.age);
+    const isValidPhoneNumber = validatePhoneNumber(user.phoneNumber);
+    const isValidCreditCardNumber = validateCreditCardNumber(user.creditCardNumber);
     const isValidEmail = validateEmail(user.email);
     // const isValid = validate(user);
     // console.log(userId);
@@ -153,10 +211,18 @@ function handleSaveUser(event) {
 
     if (!isValidLogin) {
         error.innerText = "Please, enter valid login. It should be 4 characters long. It may have lowercase and uppercase letters, digits, '.', '_'.";
+    } else if (!isValidPassword) {
+        error.innerText = 'Please, enter valid password. It must contain at least 1 uppercase and lowercase letter, at least 1 digit, and be 8 characters long.';
     } else if (!isValidName) {
         error.innerText = 'Please, enter your name.';
     } else if (!isValidLastName) {
         error.innerText = 'Please, enter your last name.';
+    } else if (!isValidAge) {
+        error.innerText = 'Please, enter your age.';
+    } else if (!isValidPhoneNumber) {
+        error.innerText = 'Phone number must contain area code, and match the following format: (xxx)xx-xx-xxx.';
+    } else if (!isValidCreditCardNumber) {
+        error.innerText = 'Card number must contain 16 digits.';
     } else if (!isValidEmail) {
         error.innerText = 'Please, enter valid email address.';
     } else {
@@ -195,14 +261,34 @@ function validateLogin(userLogin) {
     return regex.test(userLogin);
 }
 
+function validatePassword (userPassword) {
+    let regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+    return regex.test(userPassword);
+}
+
 function validateName(userName) {
-    let regex = /[A-Za-z\s]+/;
+    let regex = /^[A-Za-z\s]+$/;
     return regex.test(userName);
 }
 
 function validateLastName(userLastName) {
-    let regex = /[A-Za-z\s-]+/;
+    let regex = /^[A-Za-z\s-]+$/;
     return regex.test(userLastName);
+}
+
+function validateAge (userAge) {
+    let regex = /^\d{1,3}$/;
+    return regex.test(userAge);
+}
+
+function validatePhoneNumber (userPhoneNumber) {
+    let regex = /^\(\d{3}\)\d{2}-\d{2}-\d{3}$/;
+    return regex.test(userPhoneNumber);
+}
+
+function validateCreditCardNumber (userCardNumber) {
+    let regex = /\d{16}/;
+    return regex.test(userCardNumber);
 }
 
 function validateEmail(userEmail) {
@@ -231,10 +317,18 @@ function handleViewUser(event) {
 
     const loginContainer = createElement('p', infoContainer, 'Login: ');
     createElement('span', loginContainer, users[indexToView].login);
+    const passwordContainer = createElement('p', infoContainer, 'Password: ');
+    createElement('span', passwordContainer, users[indexToView].password);
     const nameContainer = createElement('p', infoContainer, 'Name: ');
     createElement('span', nameContainer, users[indexToView].name);
     const lastNameContainer = createElement('p', infoContainer, 'Last Name: ');
     createElement('span', lastNameContainer, users[indexToView].lastName);
+    const ageContainer = createElement('p', infoContainer, 'Age: ');
+    createElement('span', ageContainer, users[indexToView].age);
+    const phoneNumberContainer = createElement('p', infoContainer, 'Phone number: ');
+    createElement('span', phoneNumberContainer, users[indexToView].phoneNumber);
+    const creditCardNumberContainer = createElement('p', infoContainer, 'Credit card: ');
+    createElement('span', creditCardNumberContainer, users[indexToView].creditCardNumber);
     const emailContainer = createElement('p', infoContainer, 'Email Address: ');
     createElement('span', emailContainer, users[indexToView].email);
 
