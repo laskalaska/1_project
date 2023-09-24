@@ -29,9 +29,9 @@ function showUserRow(user) {
         'input',
         actionsElement,
         '',
-        {type: 'button', value: 'View', 'data-type': 'view' },
+        {type: 'button', value: 'View', 'data-type': 'view'},
         {
-          click: handleViewUser
+            click: handleViewUser
         }
     ); //viewBtnElement
 
@@ -141,31 +141,73 @@ function handleSaveUser(event) {
         id: userId ? userId : Date.now(), // TODO: think about other options
     };
 
-    const isValid = validate(user);
+    const isValidLogin = validateLogin(user.login);
+    const isValidName = validateName(user.name);
+    const isValidLastName = validateLastName(user.lastName);
+    const isValidEmail = validateEmail(user.email);
+    // const isValid = validate(user);
     // console.log(userId);
     // console.log(user);
+    const error = document.querySelector('#error');
+    cleanElement(error);
 
-    if (!isValid) {
-        const error = document.querySelector('#error');
-        cleanElement(error);
-        error.innerText = 'Please, enter all required fields.';
+    if (!isValidLogin) {
+        error.innerText = "Please, enter valid login. It should be 4 characters long. It may have lowercase and uppercase letters, digits, '.', '_'.";
+    } else if (!isValidName) {
+        error.innerText = 'Please, enter your name.';
+    } else if (!isValidLastName) {
+        error.innerText = 'Please, enter your last name.';
+    } else if (!isValidEmail) {
+        error.innerText = 'Please, enter valid email address.';
     } else {
         if (userId) {
             editUser(user, userId);
         } else {
             saveUser(user);
         }
-        cleanElement('#error');
         cleanElement('#form form');
     }
+    // if (!isValid) {
+    //     const error = document.querySelector('#error');
+    //     cleanElement(error);
+    //     error.innerText = 'Please, enter all required fields.';
+    // } else {
+    //     if (userId) {
+    //         editUser(user, userId);
+    //     } else {
+    //         saveUser(user);
+    //     }
+    //     cleanElement('#error');
+    //     cleanElement('#form form');
+    // }
 }
 
-function validate(user) {
-    if (user.login === '' || user.email === '' || user.name === '' || user.lastName === '') {
-        return false;
-    }
+// function validate(user) {
+//     if (user.login === '' || user.email === '' || user.name === '' || user.lastName === '') {
+//         return false;
+//     }
+//
+//     return true;
+// }
 
-    return true;
+function validateLogin(userLogin) {
+    let regex = /^[\w.]{4,}$/;
+    return regex.test(userLogin);
+}
+
+function validateName(userName) {
+    let regex = /[A-Za-z\s]+/;
+    return regex.test(userName);
+}
+
+function validateLastName(userLastName) {
+    let regex = /[A-Za-z\s-]+/;
+    return regex.test(userLastName);
+}
+
+function validateEmail(userEmail) {
+    let regex = /^[\w.-]{2,}@[a-zA-Z0-9.-]+\.[a-z]{2,}$/;
+    return regex.test(userEmail);
 }
 
 function saveUser(newUser) {
