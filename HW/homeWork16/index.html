@@ -9,7 +9,40 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<!--<div>-->
+<!--    <input id="openModalBtn" class="btn btn-primary" type="button" value="Modal">-->
+<!--</div>-->
+<!-- Button trigger modal -->
+<div>
+    <button type="button" class="btn btn-primary mb-4" data-toggle="tooltip" data-bs-placement="bottom"
+            title="Tooltip on bottom">
+        <span data-bs-toggle="modal" data-bs-target="#exampleModal">Tooltip & modal</span>
+    </button>
+    <div id="liveAlertPlaceholder"></div>
+    <button type="button" class="btn btn-primary" id="liveAlertBtn">Show live alert</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Hello modal
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="../../node_modules/moment/min/moment.min.js"></script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
