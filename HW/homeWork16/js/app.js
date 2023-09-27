@@ -22,7 +22,7 @@ const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 const appendAlert = (message, type) => {
     const wrapper = document.createElement('div')
     wrapper.innerHTML = [
-        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `<div class="alert alert-${type} alert-dismissible mt-4" role="alert">`,
         `   <div>${message}</div>`,
         '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
         '</div>'
@@ -37,7 +37,7 @@ if (alertTrigger) {
         if (!(document.querySelector('[role="alert"]'))) {
             appendAlert('Nice, you triggered this alert message!', 'success')
         } else {
-            document.querySelector('[role="alert"]').remove();
+            alertPlaceholder.innerHTML = '';
         }
     })
 }
