@@ -6,7 +6,7 @@ document.getElementById('randomImgBtn').addEventListener('click', (event) => {
     const imgNumber = Math.floor(Math.random() * 9) + 1;
 
     const image = document.createElement('img');
-    image.src = `HW/homeWork10/images/${imgNumber}.jpg`;
+    image.src = `images/${imgNumber}.jpg`;
     image.classList.add('randomImg');
 
     document.getElementById('imgContainer').replaceChildren();
