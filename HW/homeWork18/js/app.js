@@ -1,0 +1,2 @@
+inter();
+showImage(imageCounter);
