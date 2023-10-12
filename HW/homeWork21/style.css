@@ -1,0 +1,19 @@
+.error {
+    color: red;
+}
+
+.infoContainer {
+    border: 1px solid greenyellow;
+    display: flex;
+    justify-content: space-around;
+}
+
+.hidden {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+p::first-letter {
+    text-transform: capitalize;
+}

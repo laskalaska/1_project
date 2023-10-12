@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form name="infoForm">
+    <p><input type="text" placeholder="Full Name" id="pName">
+        <span class="error" id="pNameError"></span>
+    </p>
+    <p>
+        <input type="text" placeholder="Age" id="pAge">
+        <span class="error" id="pAgeError"></span>
+    </p>
+    <p>
+        <input type="text" placeholder="Car Model" id="cName">
+        <span class="error" id="cNameError"></span>
+    </p>
+    <p>
+        <input type="text" placeholder="Brand" id="cBrand">
+        <span class="error" id="cBrandError"></span>
+    </p>
+    <p>
+        <input type="text" placeholder="Max Speed, km/h" id="cMaxSpeed">
+        <span class="error" id="cMaxSpeedError"></span>
+    </p>
+    <p>
+        <input type="text" placeholder="Engine Capacity, cc" id="cEngine">
+        <span class="error" id="cEngineError"></span>
+    </p>
+    <p><input type="button" id="submitInfo" value="Submit info"></p>
+</form>
+<div class="infoContainer hidden">
+    <div id="personInfo"></div>
+    <div id="carInfo"></div>
+</div>
+<script src="js/domHelpers.js"></script>
+<script src="js/Person.js"></script>
+<script src="js/Car.js"></script>
+<script src="js/validationData.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
