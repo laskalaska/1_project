@@ -8,17 +8,43 @@ document.getElementById('submitHouse').addEventListener('click', () => {
     const floorsAmount = inputForm.floors.value;
     const apartmentsAmount = inputForm.apartments.value;
 
-    house = {
-        address,
-        floorsAmount,
-        apartmentsAmount
+    if (validateData()) {
+
+        house = {
+            address,
+            floorsAmount,
+            apartmentsAmount
+        }
+
+        removeElement('[name=houseForm]');
+        createApartmentForm(apartmentsAmount);
+
+    }
+});
+
+function validateData() {
+    const inputFields = document.querySelectorAll('input[type=text]');
+
+    let hasEmptyInput = true;
+
+    inputFields.forEach(inputField => {
+        if (!inputField.value) {
+            hasEmptyInput = false;
+        }
+    });
+
+    if (!hasEmptyInput) {
+        document.getElementById('error') ? document.getElementById('error') :
+            createElement('p', 'form', 'Complete all input fields.', {'id': 'error'});
+    } else {
+        hasEmptyInput = true;
+        if (document.getElementById('error')) {
+            document.getElementById('error').textContent = '';
+        }
     }
 
-    removeElement('[name=houseForm]');
-    createApartmentForm(apartmentsAmount);
-
-
-});
+    return hasEmptyInput;
+}
 
 function createApartmentForm(apartmentsAmount) {
     let apartmentForm = createElement('form', 'section', '', {'name': 'apartmentForm', 'className': 'apartmentForm'});
@@ -55,24 +81,26 @@ function createApartmentForm(apartmentsAmount) {
     });
 
     submitApartmentButton.addEventListener('click', function () {
-        for (let i = 1; i <= apartmentsAmount; i++) {
-            const apartmentNumber = document.getElementById(`apartmentNumber${i}`).value;
-            const roomsAmount = document.getElementById(`roomsAmount${i}`).value;
-            const peopleAmount = document.getElementById(`peopleAmount${i}`).value;
+        if (validateData()) {
+            for (let i = 1; i <= apartmentsAmount; i++) {
+                const apartmentNumber = document.getElementById(`apartmentNumber${i}`).value;
+                const roomsAmount = document.getElementById(`roomsAmount${i}`).value;
+                const peopleAmount = document.getElementById(`peopleAmount${i}`).value;
 
-            const apartment = {
-                apartmentNumber,
-                roomsAmount,
-                peopleAmount,
-                people: []
-            };
-            apartments.push(apartment);
+                const apartment = {
+                    apartmentNumber,
+                    roomsAmount,
+                    peopleAmount,
+                    people: []
+                };
+                apartments.push(apartment);
+            }
+            removeElement(apartmentForm);
+
+            // Выводим результат в консоль
+            console.log(apartments);
+            createResidentInputs();
         }
-        removeElement(apartmentForm);
-
-        // Выводим результат в консоль
-        console.log(apartments);
-        createResidentInputs();
     });
 }
 
@@ -105,19 +133,21 @@ function createResidentInputs() {
         });
 
         submitButton.addEventListener('click', (event) => {
-            const inputs = residentsContainer.querySelectorAll('input[type=text]');
-            const residents = Array.from(inputs).map(input => input.value);
-            apartments[index].people = residents;
-            removeElement(event.target.parentElement);
-            console.log(apartments);
-            if (!(document.querySelector('[data-id=res-inputs]'))) {
-                createElement('input', 'section', '', {
-                    'type': 'button',
-                    'id': 'showHouseInfo',
-                    'value': 'Show House Info'
-                }, {
-                    'click': showHouseInfo
-                });
+            if (validateData()) {
+                const inputs = residentsContainer.querySelectorAll('input[type=text]');
+                const residents = Array.from(inputs).map(input => input.value);
+                apartments[index].people = residents;
+                removeElement(event.target.parentElement);
+                console.log(apartments);
+                if (!(document.querySelector('[data-id=res-inputs]'))) {
+                    createElement('input', 'section', '', {
+                        'type': 'button',
+                        'id': 'showHouseInfo',
+                        'value': 'Show House Info'
+                    }, {
+                        'click': showHouseInfo
+                    });
+                }
             }
         });
 
