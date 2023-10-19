@@ -97,7 +97,6 @@ function createApartmentForm(apartmentsAmount) {
             }
             removeElement(apartmentForm);
 
-            // Выводим результат в консоль
             console.log(apartments);
             createResidentInputs();
         }
@@ -167,13 +166,11 @@ function showHouseInfo() {
     //
     // apartments.forEach(apartment => {
     //     const apartmentDiv = createElement('div', infoContainer, '', {'className': 'apartment def-div'});
-    //     // Create HTML elements for each parameter
     //     for (const key in apartment) {
     //         const parameterDiv = createElement('div', apartmentDiv, `${key}: `);
     //         const parameterValue = createElement('span', parameterDiv, apartment[key]);
     //
     //         if (key === 'people') {
-    //             // If the parameter is 'people', create 'Name' elements for each person
     //             parameterDiv.textContent = 'Residents:';
     //             parameterValue.textContent = '';
     //             parameterValue.classList.add('people-names');
