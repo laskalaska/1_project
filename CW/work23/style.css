@@ -1,0 +1,9 @@
+.mainContainer {
+    margin: auto;
+    max-width: 350px;
+}
+
+#chat {
+    min-height: 200px;
+    border: 1px solid black;
+}
