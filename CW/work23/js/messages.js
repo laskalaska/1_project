@@ -8,5 +8,6 @@ const botMessages = [
     "I'm not lazy; I'm just on energy-saving mode.",
     "Parallel lines have so much in common; it's a shame they'll never meet.",
     "I'm reading a book on anti-gravity. It's impossible to put down!",
-    "Why don't skeletons fight each other? They don't have the guts."
+    "Why don't skeletons fight each other? They don't have the guts.",
+    "See you soon, bye"
 ]
