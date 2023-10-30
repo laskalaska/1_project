@@ -3,7 +3,7 @@
 
 // Include any default variable overrides here (though functions won't be available)
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
 // Then add additional custom code here
 
@@ -15,6 +15,8 @@
   visibility: hidden;
 }
 
-li::first-letter {
-  text-transform: capitalize;
+li {
+  &:first-letter {
+    text-transform: capitalize;
+  }
 }
