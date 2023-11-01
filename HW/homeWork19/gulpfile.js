@@ -5,6 +5,8 @@ const scss = gulpSass(sass);
 const uglify = require('gulp-uglify-es').default;
 const concat = require('gulp-concat');
 const babel = require('gulp-babel');
+const livereload = require('gulp-livereload');
+const autoprefixer = require('gulp-autoprefixer');
 
 const BUILD_FOLDER = './dist/';
 const SRC_FOLDER = './src/js/*.js';
@@ -17,17 +19,24 @@ function jsTask() {
             presets: ['@babel/env']
         }))
         .pipe(uglify())
-        .pipe(gulp.dest(BUILD_FOLDER));
+        .pipe(gulp.dest(BUILD_FOLDER))
+        .pipe(livereload());
 }
 
 function watcher() {
-    return gulp.watch(SRC_FOLDER, jsTask());
+    livereload.listen();
+    return gulp.watch([SRC_FOLDER, SCSS_FOLDER], gulp.series(jsTask, scssTask));
 }
 
 function scssTask() {
     return gulp.src(SCSS_FOLDER)
         .pipe(scss({ outputStyle: 'compressed' }))
-        .pipe(gulp.dest(BUILD_FOLDER));
+        .pipe(autoprefixer({
+            overrideBrowserslist: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(gulp.dest(BUILD_FOLDER))
+        .pipe(livereload());
 }
 
 gulp.task('default', gulp.series(jsTask, scssTask, watcher));
