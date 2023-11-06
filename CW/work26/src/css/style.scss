@@ -1,0 +1,21 @@
+$red: red;
+
+.mainContainer {
+    margin: auto;
+    max-width: 350px;
+}
+
+#chat {
+    min-height: 200px;
+    border: 1px solid black;
+}
+
+#error {
+    color: $red;
+}
+
+.hidden {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
