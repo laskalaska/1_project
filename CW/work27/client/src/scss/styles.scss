@@ -1,0 +1,43 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+// Include any default variable overrides here (though functions won't be available)
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+// Then add additional custom code here
+#wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  li {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  #cart {
+    .cart-title {
+      font-weight: bold;
+    }
+    .cart-text {
+      width: 350px;
+    }
+  }
+}
+
+.hidden {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.error {
+  color: red;
+}
+
+#success {
+  color: green;
+}

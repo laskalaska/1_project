@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="wrapper">
+    <div>
+        <ul id="menu"></ul>
+        <div id="content"></div>
+
+        <input type="button" class="btn btn-success hidden" value="Checkout" id="checkout" data-bs-toggle="modal"
+               data-bs-target="#exampleModal1">
+    </div>
+    <div id="cart">
+        <div class="cart-title">Shopping Cart</div>
+        <div id="cart-list">
+            <p class="cart-text">Your cart is empty. Please, select something from the left menu, and it will be
+                displayed here.</p>
+        </div>
+    </div>
+
+    <!-- Modal for Hamburger -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="hamburgerForm">
+                        <fieldset>
+                            <legend>Select Stuffing:</legend>
+                            <label>
+                                <input type="checkbox" name="stuffing" value="cheese"> Cheese (+10 Tugriks, +20
+                                Calories)
+                            </label><br>
+                            <label>
+                                <input type="checkbox" name="stuffing" value="salad"> Salad (+20 Tugriks, +5 Calories)
+                            </label><br>
+                            <label>
+                                <input type="checkbox" name="stuffing" value="potato"> Potato (+15 Tugriks, +10 Calories)
+                            </label><br>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Select Toppings:</legend>
+                            <label>
+                                <input type="checkbox" name="topping" value="spice"> Spice (+15 Tugriks)
+                            </label><br>
+                            <label>
+                                <input type="checkbox" name="topping" value="mayo"> Mayo (+20 Tugriks, +5 Calories)
+                            </label><br>
+                        </fieldset>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="orderHamburger">Order
+                        Hamburger
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Checkout -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="checkoutBody">
+                    <form name="checkout">
+                        <p>
+                            <input type="text" id="fullName" name="fullName" placeholder="First name, last name(required)" required>
+                            <span class="error" id="nameError"></span>
+                        </p>
+
+                        <select id="city" name="city" required>
+                            <option value="">--choose city--</option>
+                            <option value="kyiv">Kyiv</option>
+                            <option value="odesa">Odesa</option>
+                            <option value="lviv">Lviv</option>
+                        </select>
+                        <span class="error" id="cityError"></span>
+
+                        <p>
+                            <input type="text" id="postalOffice" name="postalOffice" placeholder="Postal(required)" required>
+                            <span class="error" id="postalError"></span>
+                        </p>
+
+                        <p><input type="radio" name="payment" value="postpaid" checked required>Postpaid</p>
+                        <p><input type="radio" name="payment" value="bankCard" required>Bank card</p>
+                        <span class="error" id="paymentError"></span>
+
+                        <p><textarea name="userNote" placeholder="Add a comment"></textarea></p>
+                    </form>
+                    <div id="error" class="error"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="confirmOrder">Confirm info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="dist/main.js"></script>
+</body>
+</html>
