@@ -1,0 +1,29 @@
+header {
+  background-color: #333;
+  color: white;
+  width: 100%;
+}
+header div {
+  max-width: 1200px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+header div .logo {
+  width: 70px;
+}
+
+.nav_list {
+  list-style: none;
+  display: flex;
+  /*align-items: center;*/
+}
+.nav_list li {
+  margin-left: 15px;
+}
+.nav_list li a {
+  color: navajowhite;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=Header.css.map */
