@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "smile": ":)",
+    "title": "Smile",
+    "description": "indicates happy feeling"
+  },
+  {
+    "id": 2,
+    "smile": ":(",
+    "title": "Sad",
+    "description": "for those not so happy moments"
+  },
+  {
+    "id": 3,
+    "smile": "0:)",
+    "title": "Angel",
+    "description": "represents kindness"
+  }
+]
