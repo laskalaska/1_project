@@ -1,11 +1,14 @@
 import React, {useRef, useState} from 'react';
 import {func} from 'prop-types';
 import './AddForm.css'
+import {useNavigate} from "react-router-dom";
 
-function AddForm({onSave, onBack}) {
+function AddForm({onSave}) {
     const firstName = useRef();
     const lastName = useRef();
     const phoneNumber = useRef();
+
+    const navigate = useNavigate();
 
     // const [buttonState, setButtonState] = useState(false);
     const [error, setError] = useState('');
@@ -27,14 +30,13 @@ function AddForm({onSave, onBack}) {
             phoneNumber.current.value = phoneNumber.current.defaultValue;
 
             setError('');
-            const routeState = 'list';
-            onSave(newContact, routeState);
+            onSave(newContact);
+            navigate('/list');
         }
     }
 
     const handleGoBack = () => {
-        const routeState = 'list';
-        onBack(routeState);
+        navigate('/list');
     }
 
     return (
@@ -57,7 +59,7 @@ function AddForm({onSave, onBack}) {
 
 AddForm.propTypes = {
     onSave: func.isRequired,
-    onBack: func.isRequired
+    // onBack: func.isRequired
 }
 
 export default AddForm;

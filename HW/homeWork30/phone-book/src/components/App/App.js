@@ -3,6 +3,7 @@ import './App.css';
 import PhoneList from "../PhoneList/PhoneList";
 import {useState} from "react";
 import AddForm from "../AddForm/AddForm";
+import {BrowserRouter, Route, Routes, Link, Navigate} from "react-router-dom";
 
 const defaultPhoneRecords = [
     {
@@ -26,7 +27,6 @@ const defaultPhoneRecords = [
 ];
 
 function App() {
-    const [currentRoute, setCurrentRoute] = useState('list');
     const [records, setRecords] = useState(defaultPhoneRecords);
 
     const handleClickDelete = (recordId) => {
@@ -39,24 +39,31 @@ function App() {
             ...records,
             newContact
         ]);
-        setCurrentRoute(routeState);
-    }
-
-    const handleClickBack = (routeState) => {
-        setCurrentRoute(routeState);
     }
 
     return (
         <div className="App">
-            <div className="nav-menu">
-                <input type="button" value="List of contacts" className="button-link"
-                       onClick={() => setCurrentRoute('list')}></input>
-                <input type="button" value="Add new contact" className="button-link"
-                       onClick={() => setCurrentRoute('form')}/>
-            </div>
-            {currentRoute === 'list' && <PhoneList records={records} onDeleteFunc={handleClickDelete}></PhoneList>}
-            {currentRoute === 'form' &&
-                <AddForm onSave={handleClickSave} onBack={handleClickBack}></AddForm>}
+            <BrowserRouter>
+                <div className="nav-menu">
+                    <Link to="/list">List of contacts</Link>
+                    <Link to="/form">Add new contact</Link>
+                </div>
+                <Routes>
+                    <Route path="/form" element={<AddForm onSave={handleClickSave}/>}/>
+                    <Route path="/list"
+                           element={<PhoneList records={records} onDeleteFunc={handleClickDelete}/>}></Route>
+                    <Route path="/" element={<Navigate to="/list"/>}/>
+                </Routes>
+            </BrowserRouter>
+
+            {/*<input type="button" value="List of contacts" className="button-link"*/}
+            {/*       onClick={() => setCurrentRoute('list')}></input>*/}
+
+            {/*<input type="button" value="Add new contact" className="button-link"*/}
+            {/*       onClick={() => setCurrentRoute('form')}/>*/}
+            {/*{currentRoute === 'list' && <PhoneList records={records} onDeleteFunc={handleClickDelete}></PhoneList>}*/}
+            {/*{currentRoute === 'form' &&*/}
+            {/*    <AddForm onSave={handleClickSave} onBack={handleClickBack}></AddForm>}*/}
         </div>
     );
 }
