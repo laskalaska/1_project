@@ -43,14 +43,14 @@ app.post('/api/users', (req, res) => {
 
 // ****** pure JS creating server ******
 // import http from 'http';
-// import { users } from './data.js';
+// import { currentUser } from './data.js';
 //
 // const PORT = 3000;
 //
 // const server = http.createServer(function (request, response) {
 //
-//     if (request.url === '/api/users' && request.method === 'GET') {
-//         response.end(JSON.stringify(users ));
+//     if (request.url === '/api/currentUser' && request.method === 'GET') {
+//         response.end(JSON.stringify(currentUser ));
 //     } else {
 //
 //         console.log('URL of page is ' + request.url);

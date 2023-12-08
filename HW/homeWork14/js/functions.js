@@ -7,7 +7,7 @@ function showRows(users) {
 }
 
 function showUserRow(user) {
-    const container = createElement('div', '#users', '', {'data-user-id': user.id}); // container
+    const container = createElement('div', '#currentUser', '', {'data-user-id': user.id}); // container
 
     createElement('div', container, user.id); // idElement
 
@@ -333,7 +333,7 @@ function handleViewUser(event) {
     createElement('span', emailContainer, users[indexToView].email);
 
 
-    // for (let value in users[indexToView]) {
+    // for (let value in currentUser[indexToView]) {
     //
     // }
 }

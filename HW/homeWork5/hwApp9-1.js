@@ -11,7 +11,7 @@ let sumBalance = 0;
 for (let i = 0; i < users.length; i++){
     balanceToNumber = parseFloat(users[i].balance.replace('$','').replaceAll(',',''));
     if (parseFloat(balanceToNumber) > 2000) {
-        // console.log(users[i].name)
+        // console.log(currentUser[i].name)
         phoneNumbers.push(users[i].phone);
     }
     sumBalance += balanceToNumber;
