@@ -5,41 +5,41 @@ import {useState} from "react";
 import AddForm from "../AddForm/AddForm";
 import {BrowserRouter, Route, Routes, Link, Navigate} from "react-router-dom";
 
-const defaultPhoneRecords = [
-    {
-        id: 1,
-        firstName: "Leanne",
-        lastName: "Graham",
-        phone: "110-692-6593",
-    },
-    {
-        id: 2,
-        firstName: "Ervin",
-        lastName: "Howell",
-        phone: "310-545-6582",
-    },
-    {
-        id: 3,
-        firstName: "John",
-        lastName: "Doe",
-        phone: "520-542-1462",
-    }
-];
+// const defaultPhoneRecords = [
+//     {
+//         id: 1,
+//         firstName: "Leanne",
+//         lastName: "Graham",
+//         phone: "110-692-6593",
+//     },
+//     {
+//         id: 2,
+//         firstName: "Ervin",
+//         lastName: "Howell",
+//         phone: "310-545-6582",
+//     },
+//     {
+//         id: 3,
+//         firstName: "John",
+//         lastName: "Doe",
+//         phone: "520-542-1462",
+//     }
+// ];
 
 function App() {
-    const [records, setRecords] = useState(defaultPhoneRecords);
+    // const [records, setRecords] = useState(defaultPhoneRecords);
 
-    const handleClickDelete = (recordId) => {
-        const updatedRecords = records.filter(record => record.id !== recordId)
-        setRecords(updatedRecords);
-    }
+    // const handleClickDelete = (recordId) => {
+    //     const updatedRecords = records.filter(record => record.id !== recordId)
+    //     setRecords(updatedRecords);
+    // }
 
-    const handleClickSave = (newContact, routeState) => {
-        setRecords([
-            ...records,
-            newContact
-        ]);
-    }
+    // const handleClickSave = (newContact, routeState) => {
+    //     setRecords([
+    //         ...records,
+    //         newContact
+    //     ]);
+    // }
 
     return (
         <div className="App">
@@ -49,9 +49,11 @@ function App() {
                     <Link to="/form">Add new contact</Link>
                 </div>
                 <Routes>
-                    <Route path="/form" element={<AddForm onSave={handleClickSave}/>}/>
+                    {/*<Route path="/form" element={<AddForm onSave={handleClickSave}/>}/>*/}
+                    <Route path="/form" element={<AddForm/>}/>
                     <Route path="/list"
-                           element={<PhoneList records={records} onDeleteFunc={handleClickDelete}/>}></Route>
+                           // element={<PhoneList records={records} onDeleteFunc={handleClickDelete}/>}></Route>
+                           element={<PhoneList/>}></Route>
                     <Route path="/" element={<Navigate to="/list"/>}/>
                 </Routes>
             </BrowserRouter>

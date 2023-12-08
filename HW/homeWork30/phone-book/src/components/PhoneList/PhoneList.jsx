@@ -2,11 +2,16 @@ import React, {useState} from 'react';
 import {array, func} from "prop-types";
 import PhoneRecord from "../PhoneRecord/PhoneRecord";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
+import {useDispatch, useSelector} from "react-redux";
+import {DELETE_RECORD} from "../../store/records/actions";
 
-function PhoneList({records, onDeleteFunc}) {
+function PhoneList() {
 
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState();
+
+    const dispatch = useDispatch();
+    const records = useSelector(state => state.records.data);
 
     const openDeleteModal = (itemId) => {
         setSelectedItem(itemId);
@@ -18,7 +23,15 @@ function PhoneList({records, onDeleteFunc}) {
     };
 
     const handleDelete = (itemId) => {
-        onDeleteFunc(itemId);
+
+        const deleteAction = {
+            type: DELETE_RECORD,
+            payload: itemId
+        }
+
+        dispatch(deleteAction);
+
+        // onDeleteFunc(itemId);
         closeDeleteModal();
     }
     return (
@@ -63,8 +76,8 @@ function PhoneList({records, onDeleteFunc}) {
 }
 
 PhoneList.propTypes = {
-    records: array.isRequired,
-    onDeleteFunc: func.isRequired
+    // records: array.isRequired,
+    // onDeleteFunc: func.isRequired
 }
 
 export default PhoneList;

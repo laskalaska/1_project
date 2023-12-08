@@ -2,8 +2,12 @@ import React, {useRef, useState} from 'react';
 import {func} from 'prop-types';
 import './AddForm.css'
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {ADD_RECORD} from "../../store/records/actions";
 
-function AddForm({onSave}) {
+function AddForm() {
+    const dispatch = useDispatch();
+
     const firstName = useRef();
     const lastName = useRef();
     const phoneNumber = useRef();
@@ -30,7 +34,15 @@ function AddForm({onSave}) {
             phoneNumber.current.value = phoneNumber.current.defaultValue;
 
             setError('');
-            onSave(newContact);
+
+            const saveAction = {
+                type: ADD_RECORD,
+                payload: newContact
+            }
+
+            dispatch(saveAction);
+
+            // onSave(newContact);
             navigate('/list');
         }
     }
@@ -58,7 +70,7 @@ function AddForm({onSave}) {
 }
 
 AddForm.propTypes = {
-    onSave: func.isRequired,
+    // onSave: func.isRequired,
     // onBack: func.isRequired
 }
 
