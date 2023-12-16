@@ -66,11 +66,10 @@ function PhoneList() {
                 </tr>))}
                 {/*{records.map(item => (<PhoneRecord key={item.id} item={item} onDelete={onDeleteFunc}></PhoneRecord>))}*/}
             </table>
-            <DeleteConfirmationModal
-                isOpen={isDeleteModalOpen}
+            {isDeleteModalOpen && (<DeleteConfirmationModal
                 onRequestClose={closeDeleteModal}
                 onDelete={() => handleDelete(selectedItem)}
-            />
+            />)}
         </div>
     );
 }

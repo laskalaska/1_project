@@ -3,3 +3,30 @@
     align-items: center;
     display: flex;
 }
+
+.modal {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.75)
+}
+
+.modal-content {
+    position: unset;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    WebkitOverflowScrolling: touch;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px
+}
