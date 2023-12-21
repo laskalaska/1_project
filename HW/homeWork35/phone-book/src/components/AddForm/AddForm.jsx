@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import './AddForm.css'
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {ADD_RECORD} from "../../store/records/actions";
+import {addItem} from "../../store/records/recordsSlice";
 
 function AddForm() {
     const dispatch = useDispatch();
@@ -34,12 +34,7 @@ function AddForm() {
 
             setError('');
 
-            const saveAction = {
-                type: ADD_RECORD,
-                payload: newContact
-            }
-
-            dispatch(saveAction);
+            dispatch(addItem(newContact))
 
             // onSave(newContact);
             navigate('/list');

@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
 import {useDispatch, useSelector} from "react-redux";
-import {DELETE_RECORD} from "../../store/records/actions";
+import {deleteItem, fetchRecords} from "../../store/records/recordsSlice";
+import {selectAllRecords, selectTotalRecords} from "../../store/records/recordsSelectors";
 
 function PhoneList() {
 
@@ -9,7 +10,16 @@ function PhoneList() {
     const [selectedItem, setSelectedItem] = useState();
 
     const dispatch = useDispatch();
-    const records = useSelector(state => state.records.data);
+    const recordsAmount = useSelector(selectTotalRecords);
+    const records = useSelector(selectAllRecords);
+    // const records = useSelector(state => state.records.entities);
+
+    useEffect(() => {
+        if (!recordsAmount){
+            dispatch(fetchRecords());
+        }
+    }, [])
+
 
     const openDeleteModal = (itemId) => {
         setSelectedItem(itemId);
@@ -22,14 +32,8 @@ function PhoneList() {
 
     const handleDelete = (itemId) => {
 
-        const deleteAction = {
-            type: DELETE_RECORD,
-            payload: itemId
-        }
+        dispatch(deleteItem(itemId));
 
-        dispatch(deleteAction);
-
-        // onDeleteFunc(itemId);
         closeDeleteModal();
     }
     return (
@@ -49,7 +53,7 @@ function PhoneList() {
                         Actions
                     </th>
                 </tr>
-                {records.map(item => (
+                {Object.values(records).map(item => (
                     <tr>
                     {Object.entries(item).map(([key, text]) => {
                         if (key !== 'id'){
