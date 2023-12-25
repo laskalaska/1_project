@@ -1,7 +1,12 @@
 import React from 'react';
 import './DeleteConfirmationModal.css';
 
-function DeleteConfirmationModal({onRequestClose, onDelete}) {
+type DeleteConfirmationModalProps = {
+    onRequestClose: () => void;
+    onDelete: () => void;
+}
+
+function DeleteConfirmationModal({onRequestClose, onDelete}: DeleteConfirmationModalProps) {
     return (
         <div className="modal">
             <div className="modal-content">

@@ -3,13 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App/App';
 import {Provider} from "react-redux";
-import { configureStore } from '@reduxjs/toolkit'
-import recordsReducer from "./store/records/recordsSlice";
-export const store = configureStore({
-    reducer: {
-        records: recordsReducer,
-    },
-});
+import {store} from "./store/records/recordsSlice";
 
 
 
